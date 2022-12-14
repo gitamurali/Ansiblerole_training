@@ -1,12 +1,11 @@
 ---
 # vars file for create_instance
-vars:
-  - ansible_python_interpreter: /usr/bin/python
-    mykey: ********
-    instancetype: t2.micro
-    amiid: ami-0b0dcb5067f052a63
-      #  group: webserver
-    subnetid: subnet-0d6c7e90fa417f787
-    usregion: us-east-1
-    accesskey: ************
-    secretkey: ********************
+ansible_python_interpreter: /usr/bin/python
+mykey: ******
+instancetype: t2.micro
+amiid: ami-0b0dcb5067f052a6
+  #  group: webserver
+subnetid: subnet-0d6c7e90fa417f787
+usregion: us-east-1
+accesskey: ************
+secretkey: ********************
