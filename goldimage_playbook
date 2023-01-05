@@ -5,7 +5,7 @@
    tasks:
      - name: Create an EC2 instance
        ec2:
-         key_name: nov2022
+         key_name: geetha123
          region: us-east-1
          user_data: |
              #!/bin/bash
