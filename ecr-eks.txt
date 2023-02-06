@@ -1,0 +1,14 @@
+To deploy an image from an Amazon Elastic Container Registry (ECR) repository to an Amazon Elastic Kubernetes Service (EKS) cluster using Ansible, you can follow these steps:
+
+Create an ECR repository and upload your Docker image to it.
+
+Create an EKS cluster if you don't already have one.
+
+Write an Ansible playbook that performs the following tasks:
+
+Install the necessary Ansible modules (e.g. boto3 and kubernetes)
+Authenticate to ECR using AWS access keys or IAM roles
+Retrieve the latest image tag from the ECR repository
+Create a Kubernetes deployment that references the latest image from the ECR repository
+Apply the deployment to your EKS cluster using the kubernetes module
+Run the playbook using the ansible-playbook command.
