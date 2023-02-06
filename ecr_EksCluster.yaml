@@ -1,0 +1,57 @@
+- name: Deploy Docker image from ECR to EKS
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ecr_repo: my-ecr-repo
+    k8s_namespace: my-k8s-namespace
+  tasks:
+  - name: Install required modules
+    become: yes
+    pip:
+      name:
+        - boto3
+        - kubernetes
+        
+  - name: Get the latest image tag
+    become: yes
+    ecr_facts:
+      aws_access_key: "{{ aws_access_key }}"
+      aws_secret_key: "{{ aws_secret_key }}"
+      region: "{{ region }}"
+      registry_id: "{{ registry_id }}"
+      repository_name: "{{ ecr_repo }}"
+    register: ecr_image
+
+  - name: Create Kubernetes deployment
+    become: yes
+    k8s:
+      api_version: apps/v1
+      kind: Deployment
+      name: my-deployment
+      namespace: "{{ k8s_namespace }}"
+      definition:
+        metadata:
+          name: my-deployment
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: my-app
+          template:
+            metadata:
+              labels:
+                app: my-app
+            spec:
+              containers:
+              - name: my-container
+                image: "{{ ecr_image.image_url }}:{{ ecr_image.image_tag }}"
+
+  - name: Apply the deployment
+    become: yes
+    k8s:
+      api_version: apps/v1
+      kind: Deployment
+      name: my-deployment
+      namespace: "{{ k8s_namespace }}"
+      state: present
+      definition: "{{ lookup('file', './my-deployment.yml') }}"
