@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: root
+  tasks:
+    - name: copying file6 on node1 and node2
+      copy:
+         src: /home/ec2-user/file6.txt
+         dest: /home/ec2-user/
+
+    - name: installing apache on both nodes
+      yum:
+        name: httpd
+        state: latest
+    - name: starting the service
+      service:
+        name: httpd
+        state: started
+    - name: enabling the service
+      service:
+        name: httpd
+        enabled: yes
+        
+#  ansible-playbook -i inventory -vvv ansi_playbook.yml
