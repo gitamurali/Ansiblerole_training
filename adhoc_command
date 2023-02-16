@@ -1,1 +1,7 @@
+# Adhoc commands are single line commands
+# BY using this single command we can configure files on multiple hostts using inventory file.
+# The differnce between adhoc command and ansible-playbook: we can save the ansible playbook and can use multipole times, 
+# but with adhoc commands we need to write each and every time when evr we want to configure some thing on multipkle hosts.
+# Very rarely we use Adhoc commands, like if we want to transfer simple files on multiple hosts we can use Adhoc commands.
+
 ansible -i inventory all -m "shell" -a "touch file3.txt file2.txt"
